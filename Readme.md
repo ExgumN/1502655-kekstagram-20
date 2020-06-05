@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
-* Студент: [Неопознанный енот](https://up.htmlacademy.ru/javascript/20/user/1502655).
-* Наставник: `Неизвестно`.
+* Студент: Наталия Трунева (https://up.htmlacademy.ru/javascript/20/user/1502655).
+* Наставник: Игорь Тараканов (https://htmlacademy.ru/profile/id487569)
 
 ---
 
