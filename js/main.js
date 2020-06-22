@@ -85,7 +85,7 @@ var generateMessage = function () {
 // функция генерации комментов
 var generateComments = function (commentsCount) {
   var comments = [];
-  for (var i = 0; i < commentsCount; i++) {
+  for (let i = 0; i < commentsCount; i++) {
     comments[i] = {
       avatar: 'img/avatar-' + generateRandomValue(1, 6) + '.svg',
       message: generateMessage(),
@@ -96,8 +96,8 @@ var generateComments = function (commentsCount) {
 };
 // функция генерации фото объектов
 var generateFotoObject = function (num) {
-  for (var i = 0; i < num; i++) {
-    var j = i + 1;
+  for (let i = 0; i < num; i++) {
+    let j = i + 1;
     fotoObjects[i] = {
       url: 'photos/' + j + '.jpg',
       description: 'Описание фотографии',
@@ -118,7 +118,7 @@ var renderFotoObject = function (fotoObject) {
 };
 
 var fragment = document.createDocumentFragment();
-for (var i = 0; i < fotoObjects.length; i++) {
+for (let i = 0; i < fotoObjects.length; i++) {
   fragment.appendChild(renderFotoObject(fotoObjects[i]));
 }
 similarFotoElement.appendChild(fragment);
@@ -138,7 +138,7 @@ var fillBigPictureInfo = function (object) {
   bigPicture.querySelector('.comments-count').textContent = object.comments.length;
   bigPicture.querySelector('.social__caption').textContent = object.description;
   var fragment2 = document.createDocumentFragment();
-  for (var j = 0; j < object.comments.length; j++) {
+  for (let j = 0; j < object.comments.length; j++) {
     fragment2.appendChild(getComment(object.comments[j]));
   }
   similarCommentElement.innerHTML = '';
@@ -161,14 +161,6 @@ var openBigPicture = function (target) {
   target.classList.remove('hidden');
   document.querySelector('body').classList.add('modal-open');
   document.addEventListener('keydown', onPopupEscPress(target));
-  //effectPin.style.left = '100%';
-  // effectDepth.style.width = '100%';
-  // imgUploadPreview.style.filter = '';
-  // scaleControlValue.value = defaultControlValue + '%';
-  // imgUploadPreview.style.transform = 'scale' + '(' + defaultControlValue / 100 + ')';
-  // effectPin.classList.add('hidden');
-  // hashtags.value = '';
-  // effects[defaultEffect].checked = true;
 };
 
 var closeBigPicture = function (target) {
@@ -238,10 +230,6 @@ scaleControlBigger.addEventListener('click', function () {
 });
 
 // наложение эффектов
-// значения по умолчанию:
-// effectPin.style.left = '100%';
-// effectDepth.style.width = '100%';
-
 // действия при изменении фильтра
 var numFilter;
 var changeFilter = function () {
@@ -264,7 +252,7 @@ var changeFilter = function () {
   }
 };
 // добавление обработчика на изменение фильтра
-for (var j = 0; j < effects.length; j++) {
+for (let j = 0; j < effects.length; j++) {
   effects[j].addEventListener('change', changeFilter);
 }
 // перемещение слайдера
@@ -344,8 +332,8 @@ var checkSpace = function (str) {
 };
 // проверка дублей по регистру:
 var checkReg = function (array) {
-  for (var i = 0; i < array.length; i++) {
-    for (var j = i + 1; j < array.length; j++) {
+  for (let i = 0; i < array.length; i++) {
+    for (let j = i + 1; j < array.length; j++) {
       if (array[i].toLowerCase() === array[j].toLowerCase() || array[i].toLowerCase() === array[j].toLowerCase() + ' ') {
         return false;
       }
@@ -355,7 +343,7 @@ var checkReg = function (array) {
 };
 // проверка длины
 var checkLength = function (array) {
-  for (var i = 0; i < array.length; i++) {
+  for (let i = 0; i < array.length; i++) {
     if (array[i].length > 20) {
       return false;
     }
@@ -364,7 +352,7 @@ var checkLength = function (array) {
 };
 // проверка наличия пустых хештегов
 var checkEmpty = function (array) {
-  for (var i = 0; i < array.length; i++) {
+  for (let i = 0; i < array.length; i++) {
     if (array[i].length === 0 || array[i] === '#') {
       return false;
     }
@@ -377,7 +365,7 @@ var checkHashtags = function () {
   if (hashtags.value.length > 0) {
     var hashtagsArray = getHashtagsArray(checkSpace(hashtags));
     hashtags.setCustomValidity('');
-    for (var i = 0; i < hashtagsArray.length; i++) {
+    for (let i = 0; i < hashtagsArray.length; i++) {
       if (!HasgtagRegExp1.test(hashtagsArray[i]) || HasgtagRegExp2.test(hashtagsArray[i])) {
         hashtags.setCustomValidity('Можно использовать только буквы и цифры');
       }
