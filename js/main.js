@@ -85,7 +85,7 @@ var generateMessage = function () {
 // функция генерации комментов
 var generateComments = function (commentsCount) {
   var comments = [];
-  for (let i = 0; i < commentsCount; i++) {
+  for (var i = 0; i < commentsCount; i++) {
     comments[i] = {
       avatar: 'img/avatar-' + generateRandomValue(1, 6) + '.svg',
       message: generateMessage(),
@@ -96,9 +96,9 @@ var generateComments = function (commentsCount) {
 };
 // функция генерации фото объектов
 var generateFotoObject = function (num) {
-  for (let i = 0; i < num; i++) {
-    let j = i + 1;
-    fotoObjects[i] = {
+  for (var i1 = 0; i1 < num; i1++) {
+    var j = i1 + 1;
+    fotoObjects[i1] = {
       url: 'photos/' + j + '.jpg',
       description: 'Описание фотографии',
       likes: generateRandomValue(15, 200),
@@ -118,8 +118,8 @@ var renderFotoObject = function (fotoObject) {
 };
 
 var fragment = document.createDocumentFragment();
-for (let i = 0; i < fotoObjects.length; i++) {
-  fragment.appendChild(renderFotoObject(fotoObjects[i]));
+for (var i2 = 0; i2 < fotoObjects.length; i2++) {
+  fragment.appendChild(renderFotoObject(fotoObjects[i2]));
 }
 similarFotoElement.appendChild(fragment);
 
@@ -138,8 +138,8 @@ var fillBigPictureInfo = function (object) {
   bigPicture.querySelector('.comments-count').textContent = object.comments.length;
   bigPicture.querySelector('.social__caption').textContent = object.description;
   var fragment2 = document.createDocumentFragment();
-  for (let j = 0; j < object.comments.length; j++) {
-    fragment2.appendChild(getComment(object.comments[j]));
+  for (var j1 = 0; j1 < object.comments.length; j1++) {
+    fragment2.appendChild(getComment(object.comments[j1]));
   }
   similarCommentElement.innerHTML = '';
   similarCommentElement.appendChild(fragment2);
@@ -252,8 +252,8 @@ var changeFilter = function () {
   }
 };
 // добавление обработчика на изменение фильтра
-for (let j = 0; j < effects.length; j++) {
-  effects[j].addEventListener('change', changeFilter);
+for (var j2 = 0; j2 < effects.length; j2++) {
+  effects[j2].addEventListener('change', changeFilter);
 }
 // перемещение слайдера
 var move = function (evt) {
@@ -332,9 +332,9 @@ var checkSpace = function (str) {
 };
 // проверка дублей по регистру:
 var checkReg = function (array) {
-  for (let i = 0; i < array.length; i++) {
-    for (let j = i + 1; j < array.length; j++) {
-      if (array[i].toLowerCase() === array[j].toLowerCase() || array[i].toLowerCase() === array[j].toLowerCase() + ' ') {
+  for (var i3 = 0; i3 < array.length; i3++) {
+    for (var j3 = i3 + 1; j3 < array.length; j3++) {
+      if (array[i3].toLowerCase() === array[j3].toLowerCase() || array[i3].toLowerCase() === array[j3].toLowerCase() + ' ') {
         return false;
       }
     }
@@ -343,8 +343,8 @@ var checkReg = function (array) {
 };
 // проверка длины
 var checkLength = function (array) {
-  for (let i = 0; i < array.length; i++) {
-    if (array[i].length > 20) {
+  for (var i4 = 0; i4 < array.length; i4++) {
+    if (array[i4].length > 20) {
       return false;
     }
   }
@@ -352,8 +352,8 @@ var checkLength = function (array) {
 };
 // проверка наличия пустых хештегов
 var checkEmpty = function (array) {
-  for (let i = 0; i < array.length; i++) {
-    if (array[i].length === 0 || array[i] === '#') {
+  for (var i5 = 0; i5 < array.length; i5++) {
+    if (array[i5].length === 0 || array[i5] === '#') {
       return false;
     }
   }
@@ -365,8 +365,8 @@ var checkHashtags = function () {
   if (hashtags.value.length > 0) {
     var hashtagsArray = getHashtagsArray(checkSpace(hashtags));
     hashtags.setCustomValidity('');
-    for (let i = 0; i < hashtagsArray.length; i++) {
-      if (!HasgtagRegExp1.test(hashtagsArray[i]) || HasgtagRegExp2.test(hashtagsArray[i])) {
+    for (var i6 = 0; i6 < hashtagsArray.length; i6++) {
+      if (!HasgtagRegExp1.test(hashtagsArray[i6]) || HasgtagRegExp2.test(hashtagsArray[i6])) {
         hashtags.setCustomValidity('Можно использовать только буквы и цифры');
       }
     }
