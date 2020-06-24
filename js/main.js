@@ -97,9 +97,9 @@ var generateComments = function (commentsCount) {
 // функция генерации фото объектов
 var generateFotoObject = function (num) {
   for (var i1 = 0; i1 < num; i1++) {
-    var j = i1 + 1;
+    // var j = i1 + 1;
     fotoObjects[i1] = {
-      url: 'photos/' + j + '.jpg',
+      url: 'photos/' + (i1 + 1) + '.jpg',
       description: 'Описание фотографии',
       likes: generateRandomValue(15, 200),
       comments: generateComments(generateRandomValue(1, 10))
@@ -256,7 +256,7 @@ for (var j2 = 0; j2 < effects.length; j2++) {
   effects[j2].addEventListener('change', changeFilter);
 }
 // перемещение слайдера
-var move = function (evt) {
+var movePin = function (evt) {
   var min = 0;
   var max = effectLine.offsetWidth;
 
@@ -280,10 +280,10 @@ var move = function (evt) {
   return filterValue;
 };
 var mouseUp = function () {
-  document.removeEventListener('mousemove', move);
+  document.removeEventListener('mousemove', movePin);
 };
 effectPin.addEventListener('mousedown', function () {
-  document.addEventListener('mousemove', move);
+  document.addEventListener('mousemove', movePin);
   document.addEventListener('mouseup', mouseUp);
 });
 
