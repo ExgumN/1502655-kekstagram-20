@@ -102,7 +102,8 @@ var generateFotoObject = function (num) {
       url: 'photos/' + (i1 + 1) + '.jpg',
       description: 'Описание фотографии',
       likes: generateRandomValue(15, 200),
-      comments: generateComments(generateRandomValue(1, 10))
+      comments: generateComments(generateRandomValue(1, 10)),
+      ind: i1
     };
   }
   return (fotoObjects);
@@ -112,6 +113,7 @@ generateFotoObject(25);
 var renderFotoObject = function (fotoObject) {
   var fotoElement = fotoObjectTemplate.cloneNode(true);
   fotoElement.querySelector('.picture__img').src = fotoObject.url;
+  fotoElement.querySelector('.picture__img').dataset.index = fotoObject.ind;
   fotoElement.querySelector('.picture__likes').textContent = fotoObject.likes;
   fotoElement.querySelector('.picture__comments').textContent = fotoObject.comments.length;
   return fotoElement;
@@ -130,13 +132,15 @@ var getComment = function (commentObject) {
   commentElement.querySelector('.social__text').textContent = commentObject.message;
   return commentElement;
 };
-var bigPictureOpen = document.querySelector('.picture');
+var bigPicturesOpen = document.querySelectorAll('.picture');
+
 // функция заполнения большой фото инфой
 var fillBigPictureInfo = function (object) {
   bigPictureImg.querySelector('img').src = object.url;
   bigPicture.querySelector('.likes-count').textContent = object.likes;
   bigPicture.querySelector('.comments-count').textContent = object.comments.length;
   bigPicture.querySelector('.social__caption').textContent = object.description;
+
   var fragment2 = document.createDocumentFragment();
   for (var j1 = 0; j1 < object.comments.length; j1++) {
     fragment2.appendChild(getComment(object.comments[j1]));
@@ -145,7 +149,7 @@ var fillBigPictureInfo = function (object) {
   similarCommentElement.appendChild(fragment2);
 };
 
-fillBigPictureInfo(fotoObjects[0]);
+// fillBigPictureInfo(fotoObjects[1]);
 
 // функция нажатия на Esc
 var onPopupEscPress = function (target) {
@@ -157,7 +161,7 @@ var onPopupEscPress = function (target) {
   };
 };
 
-var openBigPicture = function (target) {
+var openModal = function (target) {
   target.classList.remove('hidden');
   document.querySelector('body').classList.add('modal-open');
   document.addEventListener('keydown', onPopupEscPress(target));
@@ -172,9 +176,31 @@ var closeBigPicture = function (target) {
 bigPicture.querySelector('.social__comment-count').classList.add('hidden');
 bigPicture.querySelector('.comments-loader').classList.add('hidden');
 
-bigPictureOpen.addEventListener('click', function () {
-  openBigPicture(bigPicture);
-});
+var openBigPicture = function (index) {
+  fillBigPictureInfo(fotoObjects[index]);
+  openModal(bigPicture);
+};
+
+for (var i7 = 0; i7 < bigPicturesOpen.length; i7++) {
+  bigPicturesOpen[i7].addEventListener('click', function (evt) {
+    if (evt.target.className === 'picture' || evt.target.className === 'picture__img') {
+      openBigPicture(evt.target.dataset.index);
+      // fillBigPictureInfo(fotoObjects[evt.target.dataset.index]);
+      // openModal(bigPicture);
+    }
+  });
+}
+
+for (var i8 = 0; i8 < bigPicturesOpen.length; i8++) {
+  bigPicturesOpen[i8].addEventListener('keydown', function (evt) {
+    if (evt.key === 'Enter') {
+      if (evt.target.className === 'picture' || evt.target.className === 'picture__img') {
+        openBigPicture(evt.target.children[0].dataset.index);
+      }
+    }
+  });
+}
+
 bigPictureClose.addEventListener('click', function () {
   closeBigPicture(bigPicture);
 });
@@ -190,7 +216,7 @@ uploadFile.addEventListener('change', function () {
   effectPin.classList.add('hidden');
   hashtags.value = '';
   effects[defaultEffect].checked = true;
-  openBigPicture(uploadOverlay);
+  openModal(uploadOverlay);
 
 });
 
