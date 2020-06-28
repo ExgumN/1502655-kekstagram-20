@@ -152,25 +152,25 @@ var fillBigPictureInfo = function (object) {
 // fillBigPictureInfo(fotoObjects[1]);
 
 // функция нажатия на Esc
-var onPopupEscPress = function (target) {
-  return function (evt) {
-    if (evt.key === 'Escape' && hashtags !== document.activeElement && comment !== document.activeElement) {
-      evt.preventDefault();
-      closeBigPicture(target);
-    }
-  };
+var onPopupEscPress = function (evt) {
+  if (evt.key === 'Escape' && hashtags !== document.activeElement && comment !== document.activeElement) {
+    evt.preventDefault();
+    closeUploadOverlay();
+    closeBigPicture();
+  }
 };
+
 
 var openModal = function (target) {
   target.classList.remove('hidden');
   document.querySelector('body').classList.add('modal-open');
-  document.addEventListener('keydown', onPopupEscPress(target));
+  document.addEventListener('keydown', onPopupEscPress);
 };
 
-var closeBigPicture = function (target) {
-  target.classList.add('hidden');
+var closeBigPicture = function () {
+  bigPicture.classList.add('hidden');
   document.querySelector('body').classList.remove('modal-open');
-  document.removeEventListener('keydown', onPopupEscPress(target));
+  document.removeEventListener('keydown', onPopupEscPress);
 };
 
 bigPicture.querySelector('.social__comment-count').classList.add('hidden');
@@ -178,15 +178,15 @@ bigPicture.querySelector('.comments-loader').classList.add('hidden');
 
 var openBigPicture = function (index) {
   fillBigPictureInfo(fotoObjects[index]);
-  openModal(bigPicture);
+  bigPicture.classList.remove('hidden');
+  document.querySelector('body').classList.add('modal-open');
+  document.addEventListener('keydown', onPopupEscPress);
 };
 
 for (var i7 = 0; i7 < bigPicturesOpen.length; i7++) {
   bigPicturesOpen[i7].addEventListener('click', function (evt) {
     if (evt.target.className === 'picture' || evt.target.className === 'picture__img') {
       openBigPicture(evt.target.dataset.index);
-      // fillBigPictureInfo(fotoObjects[evt.target.dataset.index]);
-      // openModal(bigPicture);
     }
   });
 }
@@ -220,8 +220,14 @@ uploadFile.addEventListener('change', function () {
 
 });
 
+var closeUploadOverlay = function () {
+  uploadOverlay.classList.add('hidden');
+  document.querySelector('body').classList.remove('modal-open');
+  document.removeEventListener('keydown', onPopupEscPress);
+};
+
 uploadClose.addEventListener('click', function () {
-  closeBigPicture(uploadOverlay);
+  closeUploadOverlay();
   uploadFile.value = '';
 });
 
