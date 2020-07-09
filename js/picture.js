@@ -5,12 +5,13 @@
   var fotoObjects = [];
   var similarFotoElement = document.querySelector('.pictures');
   var fotoObjectTemplate = document.querySelector('#picture').content.querySelector('.picture');
+
   // функция генерации сообщения комментов
   var generateMessage = function () {
     var count = window.functions.generateRandomValue(1, 2);
-    var message = window.data.USER_COMMENTS[window.functions.generateRandomValue(0, window.data.USER_COMMENTS.length - 1)];
+    var message = window.functions.selectRandomElement(window.data.USER_COMMENTS);
     if (count === 2) {
-      message = message + ' ' + window.data.USER_COMMENTS[window.functions.generateRandomValue(0, window.data.USER_COMMENTS.length - 1)];
+      message = message + ' ' + window.functions.selectRandomElement(window.data.USER_COMMENTS);
     }
     return message;
   };
@@ -18,18 +19,17 @@
   var generateComments = function (commentsCount) {
     var comments = [];
     for (var i = 0; i < commentsCount; i++) {
-      comments[i] = {
+      comments.push({
         avatar: 'img/avatar-' + window.functions.generateRandomValue(1, 6) + '.svg',
         message: generateMessage(),
-        name: window.data.USER_NAMES[window.functions.generateRandomValue(0, window.data.USER_NAMES.length - 1)]
-      };
+        name: window.functions.selectRandomElement(window.data.USER_NAMES)
+      });
     }
     return (comments);
   };
   // функция генерации фото объектов
   var generateFotoObject = function (num) {
     for (var i1 = 0; i1 < num; i1++) {
-      // var j = i1 + 1;
       fotoObjects[i1] = {
         url: 'photos/' + (i1 + 1) + '.jpg',
         description: 'Описание фотографии',

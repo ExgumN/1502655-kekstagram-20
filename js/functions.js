@@ -12,15 +12,11 @@ window.functions = (function () {
       if (evt.keyCode === ESC_KEYCODE && window.hashtags.hashtags !== document.activeElement && comment !== document.activeElement) {
         action();
       }
+    },
+    // функция выборки случайного элемента из массива
+    selectRandomElement: function (array) {
+      return array[window.functions.generateRandomValue(0, array.length - 1)];
     }
-    // onPopupEscPress: function (evt, action) {
-    //   if (evt.key === 'Escape' && window.hashtags.hashtags !== document.activeElement && comment !== document.activeElement) {
-    //     evt.preventDefault();
-    //     action();
-    //     // window.uploadPicture.closeUploadOverlay();
-    //     // window.preview.closeBigPicture();
-    //   }
-    // }
   };
 })();
 

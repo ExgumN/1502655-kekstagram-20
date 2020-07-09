@@ -10,6 +10,7 @@
 
   var uploadForm = document.querySelector('.img-upload__form');
   var uploadButton = document.querySelector('.img-upload__submit');
+  var bannedKeys = ['#', ' ', 'Backspace', 'Control', 'Alt', 'Enter', 'CapsLock', 'Tab', 'Shift', 'Delete'];
   // функция создания массива хэштегов
   var getHashtagsArray = function (str) {
     var hashtagArray = str.value.split(' ');
@@ -36,7 +37,7 @@
       evt.preventDefault();
       hashtags.value += ' #';
     }
-    if ((hashtags.value.length === 0 || hashtags.value.substr(-1) === ' ') && evt.key !== '#' && evt.key !== ' ' && evt.key !== 'Backspace' && evt.key !== 'Control' && evt.key !== 'Alt' && evt.key !== 'Enter' && evt.key !== 'CapsLock' && evt.key !== 'Tab' && evt.key !== 'Shift' && evt.key !== 'Delete') {
+    if ((hashtags.value.length === 0 || hashtags.value.substr(-1) === ' ') && bannedKeys.indexOf(evt.key) === -1) {
       evt.preventDefault();
       hashtags.value += '#' + evt.key;
     }

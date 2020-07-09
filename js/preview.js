@@ -68,8 +68,5 @@
     closeBigPicture(bigPicture);
   });
 
-  // window.preview = {
-  //   closeBigPicture: closeBigPicture(),
-  // };
 })();
 
