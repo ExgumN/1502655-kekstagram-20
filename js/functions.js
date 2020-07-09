@@ -1,6 +1,7 @@
 'use strict';
 // модуль с функциями
 window.functions = (function () {
+  var ESC_KEYCODE = 27;
   var comment = document.querySelector('.text__description');
   return {
     generateRandomValue: function (min, max) {
@@ -8,7 +9,7 @@ window.functions = (function () {
       return randomValue;
     },
     isEscEvent: function (evt, action) {
-      if (evt.keyCode === 'Escape' && window.hashtags.hashtags !== document.activeElement && comment !== document.activeElement) {
+      if (evt.keyCode === ESC_KEYCODE && window.hashtags.hashtags !== document.activeElement && comment !== document.activeElement) {
         action();
       }
     }
