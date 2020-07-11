@@ -70,8 +70,4 @@
   scaleControlBigger.addEventListener('click', function () {
     scaleControlValue.value = changeImgSize(step) + '%';
   });
-  // window.data = {
-  //   USER_NAMES: USER_NAMES,
-  //   USER_COMMENTS: USER_COMMENTS
-  // };
 })();
