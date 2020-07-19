@@ -23,7 +23,6 @@
 
     xhr.open('GET', URL);
     xhr.send();
-    // var fotoObjects = xhr.response;
   };
 })();
 
