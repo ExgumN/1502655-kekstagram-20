@@ -13,7 +13,7 @@
       // fotoElement.querySelector('.picture__img').dataset.index = fotoObject.ind;
       fotoElement.querySelector('.picture__likes').textContent = fotoObject1.likes;
       fotoElement.querySelector('.picture__comments').textContent = fotoObject1.comments.length;
-      fotoElement.setAttribute('data-url', fotoObject1.url);
+      // fotoElement.setAttribute('data-url', fotoObject1.url);
       fotoElement.addEventListener('click', window.preview.openBigFotoOnClickHandler);
       fotoElement.addEventListener('keydown', window.preview.openBigFotoKeydownHandler);
       return fotoElement;
