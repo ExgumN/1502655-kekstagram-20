@@ -73,8 +73,8 @@
     bigPicture.classList.remove('hidden');
     document.querySelector('body').classList.add('modal-open');
     document.addEventListener('keydown', onPopupEscPress);
-    //bigPicture.querySelector('.social__comment-count').classList.add('hidden');
-    //bigPicture.querySelector('.comments-loader').classList.add('hidden');
+    // bigPicture.querySelector('.social__comment-count').classList.add('hidden');
+    // bigPicture.querySelector('.comments-loader').classList.add('hidden');
     bigPictureClose.addEventListener('click', function () {
       closeBigPicture(bigPicture);
     });
