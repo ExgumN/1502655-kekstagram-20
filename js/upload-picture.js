@@ -8,6 +8,7 @@
   var uploadOverlay = document.querySelector('.img-upload__overlay');
   var imgUploadPreview = document.querySelector('.img-upload__preview img');
   var uploadForm = document.querySelector('.img-upload__form');
+
   var onPopupEscPress = function (evt) {
     window.functions.isEscEvent(evt, closeUploadOverlay);
   };

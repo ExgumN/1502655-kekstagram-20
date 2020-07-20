@@ -27,25 +27,29 @@
     xhr.send();
   };
   var uploadData = function (data, onLoad, onError) {
+    if (TIMEOUT === 10000) {
+      onLoad();
+    }
+    else {
+      onError();
+    }
+    // var xhr = new XMLHttpRequest();
 
-    var xhr = new XMLHttpRequest();
+    // xhr.responseType = 'json';
 
-    xhr.responseType = 'json';
+    // xhr.addEventListener('load', function () {
+    //   if (xhr.status === SUCCESS_STATUS) {
+    //     onLoad(xhr.response);
+    //   } else {
+    //     onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+    //   }
+    // });
 
-    xhr.addEventListener('load', function () {
-      if (xhr.status === SUCCESS_STATUS) {
-        onLoad(xhr.response);
-      } else {
-        onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
-      }
-    });
-
-    xhr.addEventListener('error', function () {
-      onError('Ошибка соединения');
-    });
-
-    xhr.open('POST', URL);
-    xhr.send(data);
+    // xhr.addEventListener('error', function () {
+    //   onError('Ошибка соединения');
+    // });
+    // xhr.open('POST', URL);
+    // xhr.send(data);
   };
   window.load = {
     loadData: loadData,
