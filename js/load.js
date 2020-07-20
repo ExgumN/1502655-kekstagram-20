@@ -29,8 +29,7 @@
   var uploadData = function (data, onLoad, onError) {
     if (TIMEOUT === 10000) {
       onLoad();
-    }
-    else {
+    } else {
       onError();
     }
     // var xhr = new XMLHttpRequest();
