@@ -7,6 +7,8 @@
   var uploadClose = document.querySelector('#upload-cancel');
   var uploadOverlay = document.querySelector('.img-upload__overlay');
   var imgUploadPreview = document.querySelector('.img-upload__preview img');
+  var uploadForm = document.querySelector('.img-upload__form');
+
   var onPopupEscPress = function (evt) {
     window.functions.isEscEvent(evt, closeUploadOverlay);
   };
@@ -16,8 +18,7 @@
     document.querySelector('body').classList.add('modal-open');
     document.addEventListener('keydown', onPopupEscPress);
   };
-  // загрузка изображения
-  uploadFile.addEventListener('change', function () {
+  var resetModalSettings = function () {
     window.effects.effectPin.style.left = '100%';
     window.effects.effectDepth.style.width = '100%';
     imgUploadPreview.style.filter = '';
@@ -26,8 +27,52 @@
     window.effects.effectPin.classList.add('hidden');
     window.hashtags.hashtags.value = '';
     window.effects.effects[defaultEffect].checked = true;
-    openModal(uploadOverlay);
+  };
+  // вывод сообщение
+  var showMessage = function (status) {
+    var main = document.querySelector('main');
+    var messageTemplate = document.querySelector('#' + status).content.querySelector('.' + status);
+    var message = messageTemplate.cloneNode(true);
+    var button = message.querySelector('.' + status + '__button');
 
+    var removeMessage = function () {
+      message.remove();
+      window.removeEventListener('click', removeMessage);
+      window.removeEventListener('keydown', removeMessageOnEscape);
+    };
+
+    var removeMessageOnEscape = function (evt) {
+      if (evt.key === 'Escape') {
+        removeMessage();
+      }
+    };
+
+    main.appendChild(message);
+
+    button.addEventListener('click', removeMessage);
+    window.addEventListener('keydown', removeMessageOnEscape);
+    window.addEventListener('click', removeMessage);
+  };
+  // отправка данных
+  var uploadImage = function (evt) {
+    window.load.uploadData(new FormData(uploadForm), function () {
+      resetModalSettings();
+      closeUploadOverlay();
+      uploadFile.value = '';
+      showMessage('success');
+    }, function () {
+      resetModalSettings();
+      closeUploadOverlay();
+      uploadFile.value = '';
+      showMessage('error');
+    });
+    evt.preventDefault();
+  };
+  // загрузка изображения
+  uploadFile.addEventListener('change', function () {
+    resetModalSettings();
+    openModal(uploadOverlay);
+    uploadForm.addEventListener('submit', uploadImage);
   });
 
   var closeUploadOverlay = function () {
@@ -45,7 +90,6 @@
   var scaleControlBigger = uploadOverlay.querySelector('.scale__control--bigger');
   var scaleControlSmaller = uploadOverlay.querySelector('.scale__control--smaller');
   var scaleControlValue = uploadOverlay.querySelector('.scale__control--value');
-  // var imgUploadPreview = document.querySelector('.img-upload__preview img');
   var defaultControlValue = 100;
   var step = 25;
   // установка размера по умолчанию

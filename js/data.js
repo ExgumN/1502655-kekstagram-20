@@ -39,6 +39,6 @@
 
   };
 
-  window.load(loadSuccessHandler, loadErrorHandler);
+  window.load.loadData(loadSuccessHandler, loadErrorHandler);
 
 })();
