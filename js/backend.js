@@ -50,7 +50,7 @@
     // xhr.open('POST', URL);
     // xhr.send(data);
   };
-  window.load = {
+  window.backend = {
     loadData: loadData,
     uploadData: uploadData
   };

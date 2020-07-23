@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var renderFotoObjects = function (fotoObject) {
+  var renderFotoObjects = window.debounce.debounceEffect(function (fotoObject) {
     var fragment = document.createDocumentFragment();
     var similarFotoElement = document.querySelector('.pictures');
     var fotoObjectTemplate = document.querySelector('#picture').content.querySelector('.picture');
@@ -21,6 +21,63 @@
       fragment.appendChild(renderFotoObject(fotoObject[i2]));
     }
     similarFotoElement.appendChild(fragment);
+    filterImages();
+  });
+
+  var filterImages = function () {
+    var filters = document.querySelector('.img-filters');
+    var filterButtons = document.querySelectorAll('.img-filters__form button');
+    var RANDOM_IMAGES_AMOUNT = 10;
+    filters.classList.remove('img-filters--inactive');
+
+    var deleteImages = function () {
+      var images = document.querySelectorAll('a.picture');
+      for (var i = 0; i < images.length; i++) {
+        images[i].remove();
+      }
+    };
+    var displayRandomImages = window.debounce.debounce(function () {
+      var images = window.data
+        .slice()
+        .sort(function () {
+          return Math.random() - 0.3;
+        })
+        .slice(0, RANDOM_IMAGES_AMOUNT);
+      renderFotoObjects(images);
+    });
+
+    var displayDiscussedImages = window.debounce.debounce(function () {
+      deleteImages();
+      var images = window.data
+        .slice()
+        .sort(function (a, b) {
+          return b.comments.length - a.comments.length;
+        });
+      renderFotoObjects(images);
+    });
+
+    var getFilter = function (evt) {
+      evt.preventDefault();
+      deleteImages();
+
+      var buttonId = evt.target.id;
+      switch (buttonId) {
+        case 'filter-random':
+          displayRandomImages();
+          break;
+        case 'filter-discussed':
+          displayDiscussedImages();
+          break;
+        case 'filter-default':
+          renderFotoObjects(window.data);
+          break;
+      }
+
+    };
+
+    for (var i = 0; i < filterButtons.length; i++) {
+      filterButtons[i].addEventListener('click', getFilter);
+    }
   };
   var loadSuccessHandler = function (photos) {
     window.data = photos;
@@ -28,7 +85,6 @@
     window.dataLength = window.data.length;
     renderFotoObjects(photos);
   };
-
   var loadErrorHandler = function (errorMessage) {
     var node = document.createElement('div');
 
@@ -39,6 +95,6 @@
 
   };
 
-  window.load.loadData(loadSuccessHandler, loadErrorHandler);
+  window.backend.loadData(loadSuccessHandler, loadErrorHandler);
 
 })();
