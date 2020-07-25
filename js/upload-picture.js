@@ -55,7 +55,7 @@
   };
   // отправка данных
   var uploadImage = function (evt) {
-    window.load.uploadData(new FormData(uploadForm), function () {
+    window.backend.uploadData(new FormData(uploadForm), function () {
       resetModalSettings();
       closeUploadOverlay();
       uploadFile.value = '';
