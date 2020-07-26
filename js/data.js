@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var renderFotoObjects = window.debounce.debounceEffect(function (fotoObject) {
+  var renderFotoObjects = window.debounce.debounce(function (fotoObject) {
     var fragment = document.createDocumentFragment();
     var similarFotoElement = document.querySelector('.pictures');
     var fotoObjectTemplate = document.querySelector('#picture').content.querySelector('.picture');
@@ -36,6 +36,7 @@
         images[i].remove();
       }
     };
+
     var displayRandomImages = window.debounce.debounce(function () {
       var images = window.data
         .slice()
@@ -47,7 +48,6 @@
     });
 
     var displayDiscussedImages = window.debounce.debounce(function () {
-      deleteImages();
       var images = window.data
         .slice()
         .sort(function (a, b) {
@@ -55,7 +55,15 @@
         });
       renderFotoObjects(images);
     });
+    var changeBorderFilterButtons = function (evt) {
+      for (var i = 0; i < filterButtons.length; i++) {
+        if (filterButtons[i] !== evt.target) {
+          filterButtons[i].classList.remove('img-filters__button--active');
+        }
+      }
 
+      evt.target.classList.toggle('img-filters__button--active');
+    };
     var getFilter = function (evt) {
       evt.preventDefault();
       deleteImages();
@@ -72,7 +80,7 @@
           renderFotoObjects(window.data);
           break;
       }
-
+      changeBorderFilterButtons(evt);
     };
 
     for (var i = 0; i < filterButtons.length; i++) {
