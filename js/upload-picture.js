@@ -77,6 +77,7 @@
 
   var closeUploadOverlay = function () {
     uploadOverlay.classList.add('hidden');
+    uploadForm.reset();
     document.querySelector('body').classList.remove('modal-open');
     document.removeEventListener('keydown', onPopupEscPress);
   };

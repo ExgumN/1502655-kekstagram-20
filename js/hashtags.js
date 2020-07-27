@@ -6,8 +6,8 @@
   var HasgtagRegExp1 = /^#[a-zа-яёA-ZА-ЯЁ\d]+/; // true
   var HasgtagRegExp2 = /[^a-zа-яёA-ZА-ЯЁ\d#]/; // false
   var hashtags = document.querySelector('.text__hashtags');
-  var maxHashtagsCnt = 5;
-
+  var MAX_HASHTAGS_CNT = 5;
+  var MAX_HASHTAGS_LENGTH = 20;
   var uploadForm = document.querySelector('.img-upload__form');
   var uploadButton = document.querySelector('.img-upload__submit');
   var bannedKeys = ['#', ' ', 'Backspace', 'Control', 'Alt', 'Enter', 'CapsLock', 'Tab', 'Shift', 'Delete'];
@@ -33,7 +33,7 @@
       evt.preventDefault();
       hashtags.value += '#';
     }
-    if (evt.key === ' ' && hashtags.value.substr(-1) !== '#' && hashtags.value.substr(-1) !== ' ' && getHashtagsArray(hashtags).length < maxHashtagsCnt) {
+    if (evt.key === ' ' && hashtags.value.substr(-1) !== '#' && hashtags.value.substr(-1) !== ' ' && getHashtagsArray(hashtags).length < MAX_HASHTAGS_CNT) {
       evt.preventDefault();
       hashtags.value += ' #';
     }
@@ -62,10 +62,10 @@
     }
     return true;
   };
-  // проверка длины
+  // проверка длинны
   var checkLength = function (array) {
     for (var i4 = 0; i4 < array.length; i4++) {
-      if (array[i4].length > 20) {
+      if (array[i4].length > MAX_HASHTAGS_LENGTH) {
         return false;
       }
     }

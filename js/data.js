@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var RANDOM_IMAGES_AMOUNT = 10;
+  var CONST_FOR_SORT_IMG = 0.5;
   var renderFotoObjects = window.debounce.debounce(function (fotoObject) {
     var fragment = document.createDocumentFragment();
     var similarFotoElement = document.querySelector('.pictures');
@@ -27,7 +29,6 @@
   var filterImages = function () {
     var filters = document.querySelector('.img-filters');
     var filterButtons = document.querySelectorAll('.img-filters__form button');
-    var RANDOM_IMAGES_AMOUNT = 10;
     filters.classList.remove('img-filters--inactive');
 
     var deleteImages = function () {
@@ -41,7 +42,7 @@
       var images = window.data
         .slice()
         .sort(function () {
-          return Math.random() - 0.3;
+          return Math.random() - CONST_FOR_SORT_IMG;
         })
         .slice(0, RANDOM_IMAGES_AMOUNT);
       renderFotoObjects(images);
