@@ -3,14 +3,14 @@
 
 (function () {
   // валидация хэштегов
-  var HasgtagRegExp1 = /^#[a-zа-яёA-ZА-ЯЁ\d]+/; // true
-  var HasgtagRegExp2 = /[^a-zа-яёA-ZА-ЯЁ\d#]/; // false
+  var HASHTAG_REG_EXP_1 = /^#[a-zа-яёA-ZА-ЯЁ\d]+/; // true
+  var HASHTAG_REG_EXP_2 = /[^a-zа-яёA-ZА-ЯЁ\d#]/; // false
   var hashtags = document.querySelector('.text__hashtags');
   var MAX_HASHTAGS_CNT = 5;
   var MAX_HASHTAGS_LENGTH = 20;
   var uploadForm = document.querySelector('.img-upload__form');
   var uploadButton = document.querySelector('.img-upload__submit');
-  var bannedKeys = ['#', ' ', 'Backspace', 'Control', 'Alt', 'Enter', 'CapsLock', 'Tab', 'Shift', 'Delete'];
+  var BANNED_KEYS = ['#', ' ', 'Backspace', 'Control', 'Alt', 'Enter', 'CapsLock', 'Tab', 'Shift', 'Delete'];
   // функция создания массива хэштегов
   var getHashtagsArray = function (str) {
     var hashtagArray = str.value.split(' ');
@@ -37,7 +37,7 @@
       evt.preventDefault();
       hashtags.value += ' #';
     }
-    if ((hashtags.value.length === 0 || hashtags.value.substr(-1) === ' ') && bannedKeys.indexOf(evt.key) === -1) {
+    if ((hashtags.value.length === 0 || hashtags.value.substr(-1) === ' ') && BANNED_KEYS.indexOf(evt.key) === -1) {
       evt.preventDefault();
       hashtags.value += '#' + evt.key;
     }
@@ -53,9 +53,9 @@
   };
   // проверка дублей по регистру:
   var checkReg = function (array) {
-    for (var i3 = 0; i3 < array.length; i3++) {
-      for (var j3 = i3 + 1; j3 < array.length; j3++) {
-        if (array[i3].toLowerCase() === array[j3].toLowerCase() || array[i3].toLowerCase() === array[j3].toLowerCase() + ' ') {
+    for (var i = 0; i < array.length; i++) {
+      for (var j = i + 1; j < array.length; j++) {
+        if (array[i].toLowerCase() === array[j].toLowerCase() || array[i].toLowerCase() === array[j].toLowerCase() + ' ') {
           return false;
         }
       }
@@ -64,8 +64,8 @@
   };
   // проверка длинны
   var checkLength = function (array) {
-    for (var i4 = 0; i4 < array.length; i4++) {
-      if (array[i4].length > MAX_HASHTAGS_LENGTH) {
+    for (var i = 0; i < array.length; i++) {
+      if (array[i].length > MAX_HASHTAGS_LENGTH) {
         return false;
       }
     }
@@ -73,8 +73,8 @@
   };
   // проверка наличия пустых хештегов
   var checkEmpty = function (array) {
-    for (var i5 = 0; i5 < array.length; i5++) {
-      if (array[i5].length === 0 || array[i5] === '#') {
+    for (var i = 0; i < array.length; i++) {
+      if (array[i].length === 0 || array[i] === '#') {
         return false;
       }
     }
@@ -82,12 +82,12 @@
   };
 
   // функция проверки хештега
-  var checkHashtags = function () {
+  var hashtagsCheckHandler = function () {
     if (hashtags.value.length > 0) {
       var hashtagsArray = getHashtagsArray(checkSpace(hashtags));
       hashtags.setCustomValidity('');
-      for (var i6 = 0; i6 < hashtagsArray.length; i6++) {
-        if (!HasgtagRegExp1.test(hashtagsArray[i6]) || HasgtagRegExp2.test(hashtagsArray[i6])) {
+      for (var i = 0; i < hashtagsArray.length; i++) {
+        if (!HASHTAG_REG_EXP_1.test(hashtagsArray[i]) || HASHTAG_REG_EXP_2.test(hashtagsArray[i])) {
           hashtags.setCustomValidity('Можно использовать только буквы и цифры');
         }
       }
@@ -102,8 +102,8 @@
       }
     }
   };
-  uploadForm.addEventListener('input', checkHashtags);
-  uploadButton.addEventListener('click', checkHashtags);
+  uploadForm.addEventListener('input', hashtagsCheckHandler);
+  uploadButton.addEventListener('click', hashtagsCheckHandler);
 
   window.hashtags = {
     hashtags: hashtags

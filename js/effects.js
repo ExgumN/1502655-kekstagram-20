@@ -70,8 +70,8 @@
     }
   };
   // добавление обработчика на изменение фильтра
-  for (var j2 = 0; j2 < effects.length; j2++) {
-    effects[j2].addEventListener('change', changeFilter);
+  for (var j = 0; j < effects.length; j++) {
+    effects[j].addEventListener('change', changeFilter);
   }
   // перемещение слайдера
   var movePin = function (evt) {

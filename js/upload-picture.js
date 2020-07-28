@@ -55,16 +55,18 @@
   };
   // отправка данных
   var uploadImage = function (evt) {
-    window.backend.uploadData(new FormData(uploadForm), function () {
-      resetModalSettings();
-      closeUploadOverlay();
-      uploadFile.value = '';
-      showMessage('success');
+    var loadHendlerGenerator = function (status) {
+      return function () {
+        resetModalSettings();
+        closeUploadOverlay();
+        uploadFile.value = '';
+        showMessage(status);
+      };
+    };
+    window.backend.upload(new FormData(uploadForm), function () {
+      loadHendlerGenerator('success');
     }, function () {
-      resetModalSettings();
-      closeUploadOverlay();
-      uploadFile.value = '';
-      showMessage('error');
+      loadHendlerGenerator('error');
     });
     evt.preventDefault();
   };

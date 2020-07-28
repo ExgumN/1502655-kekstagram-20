@@ -9,7 +9,8 @@ window.functions = (function () {
       return randomValue;
     },
     isEscEvent: function (evt, action) {
-      if (evt.keyCode === ESC_KEYCODE && window.hashtags.hashtags !== document.activeElement && comment !== document.activeElement) {
+      if (evt.keyCode === ESC_KEYCODE && window.hashtags.hashtags !== document.activeElement
+                                      && comment !== document.activeElement) {
         action();
       }
     },

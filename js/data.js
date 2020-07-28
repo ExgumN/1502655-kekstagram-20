@@ -19,8 +19,8 @@
       return fotoElement;
     };
 
-    for (var i2 = 0; i2 < fotoObject.length; i2++) {
-      fragment.appendChild(renderFotoObject(fotoObject[i2]));
+    for (var i = 0; i < fotoObject.length; i++) {
+      fragment.appendChild(renderFotoObject(fotoObject[i]));
     }
     similarFotoElement.appendChild(fragment);
     filterImages();
@@ -104,6 +104,6 @@
 
   };
 
-  window.backend.loadData(loadSuccessHandler, loadErrorHandler);
+  window.backend.load(loadSuccessHandler, loadErrorHandler);
 
 })();
